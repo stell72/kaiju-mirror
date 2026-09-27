@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'kaiju-mirror-production.up.railway.app',
+    baseURL: 'https://kaiju-mirror-production.up.railway.app',
 });
 
 api.interceptors.request.use(
