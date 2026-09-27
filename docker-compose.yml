@@ -10,17 +10,6 @@ services:
     networks:
       - prisma-network
 
-    #develop:
-      #watch:
-        #- path: ./frontend/Kaiju/package.json
-          #action: rebuild
-
-        #- path: ./frontend/Kaiju
-          #target: /frontend/Kaiju
-          #action: sync
-          #ignore:
-          #- node_modules/
-
   backend:
     build: ./backend
     ports:

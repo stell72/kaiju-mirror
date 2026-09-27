@@ -8,15 +8,13 @@ const STATUTS = {
 };
 
 export function CommandeCard({ commande, onAccepter, onRefuser, onRessayer }) {
-    // const statut = STATUTS[commande.status];
     const user = getCurrentUser();
     const userQuarterId = user?.quarterId;
 
-    const estFournisseur = userQuarterId === commande.fromQuarterId; // Quartier qui reçoit la demande
+    const estFournisseur = userQuarterId === commande.fromQuarterId; 
     const estDemandeur = userQuarterId === commande.toQuarterId;
 
 
-    // const estDemandeur = user?.quarterId === commande.toQuarterId;
     const statutInfo = STATUTS[commande.status] || { label: commande.status, classe: '' };
 
     return (

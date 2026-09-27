@@ -27,14 +27,8 @@ export function Formulaire() {
 
             const user = getCurrentUser();
 
-            // localStorage.setItem('token', data.token);
-            // localStorage.setItem("user", data.user);
-
-
-
             if (!user || !user.role) {
                 localStorage.clear();
-                // logout();
                 setErreur("Impossible de récupérer le rôle de l'utilisateur.");
                 return;
             }

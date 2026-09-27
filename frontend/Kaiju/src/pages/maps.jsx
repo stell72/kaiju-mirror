@@ -41,54 +41,6 @@ const ANCRES = {
   Z: [420, 700],
 };
 
-
-
-// const NIVEAUX = [
-//   { texte: "Calme", teinte: "#4f8a5b" },
-//   { texte: "Vigilance", teinte: "#8a9a3d" },
-//   { texte: "Alerte", teinte: "#c99326" },
-//   { texte: "Alerte renforcée", teinte: "#d2651f" },
-//   { texte: "Évacuation", teinte: "#b8332c" },
-// ];
-
-// function Jauge({ niveau, compact = false, interactif = false, onChange }) {
-//   const t = NIVEAUX[niveau - 1];
-//   return (
-//     <div className="tk-jauge">
-//       <div className="tk-jauge-barres" aria-hidden={!interactif}>
-
-//         {[1, 2, 3, 4, 5].map((n) => {
-//           const rempli = n <= niveau;
-//           const props = {
-//             className: `tk-cran${interactif ? " est-cliquable" : ""}`,
-//             style: {
-//               background: rempli ? t.teinte : "transparent",
-//               borderColor: rempli ? t.teinte : "rgba(22,34,44,.25)",
-//               width: compact ? 14 : 22,
-//             },
-//           };
-
-//           if (interactif) {
-//             return (
-//               <button
-//                 key={n}
-//                 {...props}
-//                 type="button"
-//                 aria-label={`Régler le niveau de catastrophe à ${n}`}
-//                 onClick={() => onChange(n)}
-//               />
-//             );
-//           }
-//           return <span key={n} {...props} />;
-//         })}
-//       </div>
-//       <span className="tk-jauge-texte" style={{ color: t.teinte }}>
-//         {t.texte} · {niveau}/5
-//       </span>
-//     </div>
-//   );
-// }
-
 export function Maps() {
   const [niveau, setNiveau] = useState(1);
   const [survol, setSurvol] = useState(null);

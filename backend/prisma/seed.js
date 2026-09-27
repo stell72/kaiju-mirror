@@ -1,40 +1,7 @@
-/**
- * prisma/seed.js
- *
- * Seed script for the KAIJU Crisis Manager platform (Prisma v6).
- *
- * Contents:
- *  - 5 quarters (Apex, Echo, Warden, Xeno, Zion) with sea access flags
- *  - the full adjacency graph (bidirectional DIRECT routes)
- *  - 10 resource types
- *  - initial stock + retention thresholds per quarter/resource (from the rules annex)
- *  - users:
- *      - 1 City Director (CD)  -> no assigned quarter
- *      - 1 Logistics Coordinator (LC) -> no assigned quarter
- *      - 2 Quarter Coordinators (QC) per quarter, each linked to their quarter
- *  - a DisasterLevelLog entry setting the disaster level to 3 (Emergency), changed by the CD
- *
- * Usage:
- *   npx prisma db seed
- *
- * package.json:
- *   "prisma": {
- *     "seed": "node prisma/seed.js"
- *   }
- *
- * Note: this reuses the app's configured Prisma client (Config/prisma.js),
- * which already wires the pg driver adapter for Prisma 7 — do not
- * instantiate a separate `new PrismaClient()` here, it would bypass that
- * configuration.
- */
-
 const { UserRole, RouteType } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 const prisma = require('../src/Config/prisma');
 
-// ---------------------------------------------------------------------------
-// Static reference data
-// ---------------------------------------------------------------------------
 
 const QUARTERS = [
   { code: 'A', name: 'Apex', seaAccess: false },
@@ -44,8 +11,6 @@ const QUARTERS = [
   { code: 'Z', name: 'Zion', seaAccess: true },
 ];
 
-// Undirected adjacency pairs from the adjacency matrix (Sea excluded: it is
-// represented by Quarter.seaAccess, not a graph node).
 const ADJACENCY_PAIRS = [
   ['A', 'E'],
   ['A', 'W'],
@@ -109,7 +74,6 @@ const RESOURCE_TYPES = [
   },
 ];
 
-// [initialQuantity, retentionMin] per quarter, per resource — from the rules annex.
 const STOCK = {
   MEDICAL_PERSONNEL: { A: [12, 4], E: [5, 2], W: [8, 3], X: [3, 1], Z: [7, 3] },
   RESCUE_TEAMS: { A: [4, 2], E: [9, 3], W: [3, 1], X: [6, 2], Z: [5, 2] },
@@ -123,14 +87,11 @@ const STOCK = {
   HAZMAT_EQUIPMENT: { A: [3, 1], E: [5, 2], W: [4, 2], X: [2, 1], Z: [10, 3] },
 };
 
-const DEFAULT_PASSWORD = 'ChangeMe123!'; // placeholder, change before any real deployment
+const DEFAULT_PASSWORD = 'ChangeMe123!'; 
 
-// ---------------------------------------------------------------------------
-// Seed logic
-// ---------------------------------------------------------------------------
+
 
 async function cleanDatabase() {
-  // Delete in FK-safe order (children first).
   await prisma.rejectionLog.deleteMany();
   await prisma.requestApproval.deleteMany();
   await prisma.disasterLevelLog.deleteMany();
@@ -205,7 +166,6 @@ async function seedQuarterStocks(quarterIds, resourceIds) {
 async function seedUsers(quarterIds) {
   const passwordHash = await bcrypt.hash(DEFAULT_PASSWORD, 10);
 
-  // City Director — city-wide scope, no assigned quarter.
   const cityDirector = await prisma.user.create({
     data: {
       email: 'cd@tokyork.gov',
@@ -215,7 +175,6 @@ async function seedUsers(quarterIds) {
     },
   });
 
-  // Logistics Coordinator — multi-quarter scope, no assigned quarter.
   await prisma.user.create({
     data: {
       email: 'lc@tokyork.gov',
@@ -225,7 +184,6 @@ async function seedUsers(quarterIds) {
     },
   });
 
-  // 2 Quarter Coordinators per quarter, each tied to their own quarter.
   for (const q of QUARTERS) {
     for (const n of [1, 2]) {
       await prisma.user.create({
@@ -251,10 +209,6 @@ async function seedDisasterLevel(changedByUserId) {
     },
   });
 }
-
-// ---------------------------------------------------------------------------
-// Entry point
-// ---------------------------------------------------------------------------
 
 async function main() {
   console.log('Cleaning database...');

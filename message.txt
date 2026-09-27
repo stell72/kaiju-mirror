@@ -1,0 +1,266 @@
+# Resource Transfer & Alert Management Platform
+
+A full-stack platform for coordinating **resource transfers between quarters**. Access and available actions depend on the user's **role, assigned quarter, disaster level, resource availability, and retention rules**.
+
+The system manages resource requests from creation through approval and execution while enforcing business rules and maintaining an audit trail.
+
+## Live Demo
+
+The deployed application is available at:https://glistening-communication-production-e375.up.railway.app/
+
+## Features
+
+* Resource management and stock tracking
+* Transfers between quarters
+* Direct, transit, and maritime routes
+* Role-based permissions
+* Disaster-level restrictions
+* Resource retention rules
+* Multi-stage transfer approvals
+* Resource requisitions
+* Transfer scheduling
+* Real-time updates with Socket.IO
+* Business-rule validation and rejection logging
+* JWT authentication
+
+## Roles
+
+| Role                           | Scope          | Responsibilities                                                                                                 |
+| ------------------------------ | -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **QC — Quarter Coordinator**   | Single quarter | Manages own resources, approves or denies incoming requests, and initiates requests to adjacent quarters         |
+| **LC — Logistics Coordinator** | Multi-quarter  | Organizes transfers and transit chains across non-adjacent quarters; cannot force a transfer without QC approval |
+| **CD — City Director**         | City-wide      | Has full authority, can requisition resources, and is the only role able to lower retention thresholds           |
+
+## Resource Transfer Workflow
+
+A transfer connects a source quarter, destination quarter, resource, quantity, route, and schedule.
+
+```text
+Request
+   ↓
+Validation
+   ↓
+Approval
+   ↓
+Ready to Execute
+   ↓
+Execution
+   ↓
+Completed
+```
+
+Requests can also be rejected or cancelled.
+
+The system validates transfers against rules including:
+
+* User permissions
+* Quarter adjacency
+* Resource availability
+* Minimum retention levels
+* Disaster-level restrictions
+* Resource priority conflicts
+
+Violations are recorded for auditing.
+
+## Quarters and Resources
+
+Each quarter has:
+
+* A unique code and name
+* Resource stock
+* A minimum retention level for each resource
+* Users assigned to it
+* Incoming and outgoing routes
+
+Resources are represented by resource types and their corresponding stock at each quarter.
+
+## Routes
+
+The platform supports three route types:
+
+* **Direct** — between adjacent quarters
+* **Transit** — through an intermediate quarter
+* **Maritime** — using maritime access
+
+Quarter adjacency is stored in the database, allowing the backend to validate whether a proposed route is permitted.
+
+## Disaster Levels
+
+Transfer requests record the disaster level at the time they are created.
+
+Disaster levels can restrict operations and are tracked through a change log containing the level, user, reason, and timestamp.
+
+## Authentication and Authorization
+
+The backend uses JWT authentication.
+
+After login, the JWT contains the user's:
+
+* ID
+* Role
+* Assigned quarter
+
+Authenticated API requests use:
+
+```http
+Authorization: Bearer <token>
+```
+
+Passwords are hashed using bcrypt.
+
+Authentication, authorization, and business rules are enforced on the backend.
+
+## Real-Time Communication
+
+Socket.IO provides real-time communication between the backend and connected clients.
+
+Authenticated users are placed into rooms based on their user ID and assigned quarter:
+
+```text
+user:<userId>
+quarter:<quarterId>
+broadcast
+```
+
+This allows events to be sent to individual users, specific quarters, or all connected clients.
+
+## Tech Stack
+
+### Backend
+
+* Node.js 22
+* Express 5
+* PostgreSQL
+* Prisma
+* Socket.IO
+* JSON Web Tokens
+* bcrypt
+
+### Frontend
+
+* Axios
+* Node.js 22
+
+### Testing
+
+* Vitest
+* Supertest
+
+### Infrastructure
+
+* Docker
+* Docker Compose
+
+## Why These Technologies?
+
+**Node.js and Express** provide the backend runtime and API layer for handling requests and business logic.
+
+**PostgreSQL and Prisma** provide reliable relational data management for users, quarters, resources, transfers, approvals, and audit logs.
+
+**JWT and bcrypt** provide authentication while keeping user passwords securely hashed.
+
+**Socket.IO** enables real-time communication between users and quarters.
+
+**Docker and Docker Compose** provide reproducible environments and simplify running the frontend and backend together.
+
+**Vitest and Supertest** provide automated testing for backend logic and HTTP endpoints.
+
+## Database
+
+The main entities are:
+
+```text
+User
+ │
+ └── Quarter
+
+Quarter
+ ├── Stock
+ ├── Routes
+ └── Transfer Requests
+
+Resource Type
+ ├── Stock
+ └── Transfer Requests
+
+Transfer Request
+ ├── Approvals
+ └── Rejection Logs
+
+User
+ ├── Approvals
+ ├── Disaster Level Logs
+ └── Rejection Logs
+```
+
+PostgreSQL stores the application data, while Prisma manages database access and migrations.
+
+## Running with Docker
+
+Create the backend environment file:
+
+```env
+DATABASE_URL="your_database_url"
+JWT_SECRET_KEY="your_jwt_secret"
+TOKEN_HEADER_KEY="your_token_header"
+DB_USER=admin
+DB_PASSWORD=your_database_password
+DB_NAME=db
+```
+
+Then start the application:
+
+```bash
+docker compose up --build
+```
+
+The backend automatically runs:
+
+```bash
+npx prisma generate
+npx prisma migrate deploy
+npm run start
+```
+
+The services are available at:
+
+```text
+Frontend: http://localhost:5173
+Backend:  http://localhost:8000
+```
+
+## Development
+
+Run the backend locally:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+Generate the Prisma client:
+
+```bash
+npm run build
+```
+
+## Security
+
+Sensitive configuration must be stored in environment variables and never committed to the repository.
+
+In particular:
+
+```text
+DATABASE_URL
+DB_PASSWORD
+JWT_SECRET_KEY
+```
+
+The backend validates authentication, permissions, and business rules independently of the frontend.

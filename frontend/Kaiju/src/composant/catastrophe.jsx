@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getDisasterLevel, updateDisasterLevel } from '../utileDb/quarter.jsx';
-import { getCurrentUser, hasRole } from '../utileDb/auth.jsx';
+import { hasRole } from '../utileDb/auth.jsx';
 import './catastrophe.css';
 
 export const NIVEAUX = [
