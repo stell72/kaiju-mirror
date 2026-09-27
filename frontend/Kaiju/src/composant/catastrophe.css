@@ -1,0 +1,135 @@
+.catastrophe-panneau {
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  box-shadow: var(--ombre);
+  padding: 20px 22px 22px;
+  color: var(--texte);
+  font-family: var(--police);
+  max-width: 520px;
+}
+
+.catastrophe-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.catastrophe-entete h2 {
+  font-family: var(--police);
+  font-weight: 700;
+  font-size: 19px;
+  margin: 0;
+  color: var(--texte);
+}
+
+.catastrophe-badge {
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  letter-spacing: .01em;
+  box-shadow: var(--ombre);
+}
+
+.catastrophe-chargement {
+  font-size: 12.5px;
+  color: var(--texte-clair);
+}
+
+.catastrophe-jauge {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.catastrophe-cran {
+  flex: 1;
+  height: 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--bordure);
+  display: block;
+  padding: 0;
+  transition: filter .15s ease, transform .1s ease;
+}
+
+.catastrophe-cran.est-cliquable {
+  cursor: pointer;
+}
+
+.catastrophe-cran.est-cliquable:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: scaleY(1.15);
+}
+
+.catastrophe-cran.est-cliquable:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.catastrophe-cran:focus-visible {
+  outline: 2px solid var(--primaire);
+  outline-offset: 2px;
+}
+
+.catastrophe-form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.catastrophe-form label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--texte-clair);
+}
+
+.catastrophe-form input {
+  font: inherit;
+  font-size: 13.5px;
+  padding: 9px 12px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  background: var(--fond);
+}
+
+.catastrophe-form input:focus-visible {
+  outline: none;
+  border-color: var(--primaire);
+  box-shadow: 0 0 0 3px var(--primaire-clair);
+}
+
+.catastrophe-aide {
+  font-size: 11.5px;
+  color: var(--texte-clair);
+  margin: 4px 0 0;
+}
+
+.catastrophe-note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--texte-clair);
+  background: var(--fond);
+  padding: 10px 12px;
+  border-radius: var(--rayon-sm);
+}
+
+.catastrophe-historique {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--texte-clair);
+  border-top: 1px solid var(--bordure);
+  padding-top: 12px;
+}
+
+.catastrophe-erreur {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--danger);
+}

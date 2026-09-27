@@ -1,0 +1,116 @@
+.non-adjacent-panneau {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  padding: 24px 26px;
+}
+
+.non-adjacent-panneau h2 {
+  font-family: var(--police);
+  font-weight: 700;
+  font-size: 17px;
+  margin: 0 0 18px;
+  color: var(--texte);
+}
+
+.non-adjacent-chargement {
+  color: var(--texte-clair);
+  font-size: 13.5px;
+}
+
+.non-adjacent-note {
+  color: var(--texte-clair);
+  font-size: 14px;
+  background: var(--fond);
+  padding: 12px 14px;
+  border-radius: var(--rayon-sm);
+  margin: 0;
+}
+
+.non-adjacent-vide {
+  color: var(--texte-clair);
+  font-style: italic;
+  font-size: 14px;
+}
+
+.non-adjacent-erreur {
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.non-adjacent-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.non-adjacent-carte {
+  background: var(--fond);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  padding: 14px 16px;
+}
+
+.non-adjacent-carte-entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.non-adjacent-badge {
+  background: var(--info-fond);
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.non-adjacent-date {
+  font-size: 12px;
+  color: var(--texte-clair);
+  white-space: nowrap;
+}
+
+.non-adjacent-trajet {
+  font-size: 14px;
+  color: var(--texte);
+  margin: 6px 0;
+}
+
+.non-adjacent-detail {
+  font-size: 13.5px;
+  color: var(--texte-clair);
+  margin: 4px 0 10px;
+}
+
+.non-adjacent-bouton {
+  background: linear-gradient(135deg, var(--primaire), var(--primaire-fonce));
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--rayon-sm);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .1s ease, box-shadow .15s ease;
+  box-shadow: var(--ombre);
+}
+
+.non-adjacent-bouton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--ombre-hover);
+}
+
+.non-adjacent-bouton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}

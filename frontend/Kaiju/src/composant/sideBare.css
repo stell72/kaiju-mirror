@@ -1,0 +1,48 @@
+.button-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--primaire), var(--primaire-fonce));
+  padding: 32px 0 20px;
+  box-shadow: 4px 0 24px rgba(67, 56, 202, .18);
+}
+
+.list-button {
+  list-style: none;
+  margin: 0;
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.list-button li {
+  font-family: var(--police);
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: .01em;
+  color: #fff;
+  text-transform: capitalize;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: var(--rayon-sm);
+  transition: background .15s ease, transform .1s ease;
+}
+
+.list-button li:hover {
+  background: rgba(255, 255, 255, .16);
+  transform: translateX(2px);
+}
+
+.list-button li:last-child {
+  margin-top: auto;
+  color: rgba(255, 255, 255, .75);
+  border-top: 1px solid rgba(255, 255, 255, .2);
+  padding-top: 18px;
+  border-radius: 0;
+}

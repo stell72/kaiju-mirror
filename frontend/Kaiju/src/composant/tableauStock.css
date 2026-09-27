@@ -1,0 +1,45 @@
+.tableau-stock {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  overflow: hidden;
+  box-shadow: var(--ombre);
+}
+
+.tableau-stock thead th {
+  background: linear-gradient(135deg, var(--primaire), var(--primaire-fonce));
+  color: #fff;
+  font-family: var(--police);
+  font-weight: 700;
+  font-size: 13.5px;
+  text-align: left;
+  vertical-align: middle;
+  padding: 13px 16px;
+}
+
+.tableau-stock tbody td {
+  padding: 14px 16px;
+  border-top: 1px solid var(--bordure);
+  color: var(--texte);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.tableau-stock tbody td.tableau-stock-ressource {
+  font-weight: 700;
+  color: var(--primaire-fonce);
+}
+
+.tableau-stock tbody tr:hover {
+  background: var(--primaire-clair);
+}
+
+.tableau-stock-vide {
+  text-align: center;
+  color: var(--texte-clair);
+  font-style: italic;
+  padding: 22px;
+}

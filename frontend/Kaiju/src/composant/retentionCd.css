@@ -1,0 +1,144 @@
+.retention-panneau {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  padding: 24px 26px;
+}
+
+.retention-panneau h2 {
+  font-family: var(--police);
+  font-weight: 700;
+  font-size: 17px;
+  margin: 0 0 18px;
+  color: var(--texte);
+}
+
+.retention-chargement {
+  color: var(--texte-clair);
+  font-size: 13.5px;
+}
+
+.retention-note {
+  color: var(--texte-clair);
+  font-size: 14px;
+  background: var(--fond);
+  padding: 12px 14px;
+  border-radius: var(--rayon-sm);
+  margin: 0;
+}
+
+.retention-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+  max-width: 280px;
+}
+
+.retention-champ label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--texte-clair);
+}
+
+.retention-champ select {
+  font: inherit;
+  padding: 10px 13px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  font-size: 14px;
+  background: var(--fond);
+  color: var(--texte);
+}
+
+.retention-champ select:focus-visible {
+  outline: none;
+  border-color: var(--primaire);
+  box-shadow: 0 0 0 3px var(--primaire-clair);
+}
+
+.retention-erreur {
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.retention-succes {
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.retention-tableau {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  overflow: hidden;
+}
+
+.retention-tableau thead th {
+  background: linear-gradient(135deg, var(--primaire), var(--primaire-fonce));
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 14px;
+}
+
+.retention-tableau tbody td {
+  padding: 10px 14px;
+  border-top: 1px solid var(--bordure);
+  font-size: 13.5px;
+  color: var(--texte);
+  vertical-align: middle;
+}
+
+.retention-vide {
+  text-align: center;
+  color: var(--texte-clair);
+  font-style: italic;
+  padding: 16px;
+}
+
+.retention-tableau input {
+  font: inherit;
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  background: var(--fond);
+  color: var(--texte);
+}
+
+.retention-tableau input:focus-visible {
+  outline: none;
+  border-color: var(--primaire);
+  box-shadow: 0 0 0 3px var(--primaire-clair);
+}
+
+.retention-bouton {
+  background: var(--primaire);
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: var(--rayon-sm);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter .15s ease;
+}
+
+.retention-bouton:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.retention-bouton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}

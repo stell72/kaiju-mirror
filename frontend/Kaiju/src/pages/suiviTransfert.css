@@ -1,0 +1,123 @@
+.suivi-page {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-family: var(--police);
+}
+
+.suivi-detail,
+.suivi-liste {
+  border: 1px solid var(--bordure);
+  background: var(--carte);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  padding: 24px 26px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.suivi-vide {
+  color: var(--texte-clair);
+  font-size: 14px;
+}
+
+/* Liste des demandes */
+.liste-demandes h2 {
+  font-family: var(--police);
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0 0 16px;
+  color: var(--texte);
+}
+
+.carte-demande {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  background: var(--fond);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, transform .1s ease;
+}
+
+.carte-demande:hover {
+  border-color: var(--primaire);
+  transform: translateX(2px);
+}
+
+.carte-demande.est-selectionnee {
+  background: var(--primaire-clair);
+  border-color: var(--primaire);
+}
+
+.carte-statut {
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.carte-demande.statut-en_attente .carte-statut { color: #b45309; }
+.carte-demande.statut-accepte .carte-statut { color: #15803d; }
+.carte-demande.statut-refuse .carte-statut { color: var(--danger); }
+
+/* Détail du trajet */
+.detail-transfert h2 {
+  font-family: var(--police);
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0 0 20px;
+  color: var(--texte);
+}
+
+.detail-attente,
+.detail-refuse {
+  font-size: 14px;
+}
+
+.detail-refuse { color: var(--danger); font-weight: 600; }
+
+.detail-trajet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.detail-etape {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  background: var(--fond);
+  padding: 12px 18px;
+  text-align: center;
+}
+
+.detail-label {
+  font-size: 11px;
+  color: var(--texte-clair);
+  font-weight: 600;
+}
+
+.detail-valeur {
+  font-size: 13px;
+  color: var(--texte);
+}
+
+.detail-mode {
+  font-size: 28px;
+}
+
+.temps-restant {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primaire-fonce);
+}

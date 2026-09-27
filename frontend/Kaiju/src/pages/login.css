@@ -1,0 +1,23 @@
+.page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primaire), var(--secondaire));
+  z-index: 10;
+}
+
+
+.login-page-container {
+  width: 100%;
+  max-width: 380px;
+  padding: 0 20px;
+}
+
+.login-form-section {
+  background: var(--carte);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre-hover);
+  padding: 34px 28px;
+}

@@ -1,0 +1,233 @@
+.commande-page {
+  display: flex;
+  justify-content: center;
+}
+
+.commande-container {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.commande-title {
+  font-family: var(--police);
+  font-weight: 800;
+  font-size: clamp(26px, 3vw, 32px);
+  margin: 0;
+  color: var(--texte);
+}
+
+.commande-erreur {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--danger);
+  background: var(--danger-fond);
+  padding: 10px 14px;
+  border-radius: var(--rayon-sm);
+  margin: 0;
+}
+
+.commande-section {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  padding: 24px 26px;
+}
+
+.commande-section-titre {
+  font-family: var(--police);
+  font-weight: 700;
+  font-size: 17px;
+  margin: 0 0 16px;
+  color: var(--texte);
+}
+
+/* Formulaire */
+.formulaire-commande {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formulaire-commande-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formulaire-commande-champ label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--texte-clair);
+}
+
+.formulaire-commande-champ select,
+.formulaire-commande-champ input {
+  font: inherit;
+  padding: 10px 13px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  font-size: 14px;
+  background: var(--fond);
+  color: var(--texte);
+}
+
+.formulaire-commande-champ select:focus-visible,
+.formulaire-commande-champ input:focus-visible {
+  outline: none;
+  border-color: var(--primaire);
+  box-shadow: 0 0 0 3px var(--primaire-clair);
+}
+
+.formulaire-commande-erreur {
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.formulaire-commande-bouton {
+  align-self: flex-start;
+  background: linear-gradient(135deg, var(--primaire), var(--primaire-fonce));
+  color: #fff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: var(--rayon-sm);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  cursor: pointer;
+  box-shadow: var(--ombre);
+  transition: transform .1s ease, box-shadow .15s ease;
+}
+
+.formulaire-commande-bouton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--ombre-hover);
+}
+
+/* Liste + cartes */
+.liste-commandes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.liste-commandes-vide {
+  color: var(--texte-clair);
+  font-style: italic;
+  font-size: 14px;
+}
+
+.commande-carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  padding: 16px 20px;
+  transition: box-shadow .15s ease;
+}
+
+.commande-carte:hover {
+  box-shadow: var(--ombre-hover);
+}
+
+.commande-carte-entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.commande-carte-date {
+  font-size: 12px;
+  color: var(--texte-clair);
+  white-space: nowrap;
+}
+
+.commande-carte-corps p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: var(--texte);
+}
+
+.commande-badge {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+.statut-attente {
+  background: var(--attente-fond);
+  color: #b45309;
+}
+
+.statut-acceptee {
+  background: var(--succes-fond);
+  color: #15803d;
+}
+
+.statut-refusee {
+  background: var(--danger-fond);
+  color: #b91c1c;
+}
+
+.commande-carte-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.commande-bouton {
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--rayon-sm);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter .15s ease, transform .1s ease;
+}
+
+.commande-bouton:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.commande-bouton-accepter {
+  background: var(--succes);
+  color: #fff;
+}
+
+.commande-bouton-refuser {
+  background: var(--danger);
+  color: #fff;
+}
+
+.commande-bouton-ressayer {
+  background: var(--primaire);
+  color: #fff;
+  margin-top: 6px;
+}
+
+.commande-carte-note {
+  font-size: 13px;
+  color: var(--texte-clair);
+  margin-top: 10px;
+}
+
+.commande-carte-note-ok {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.commande-carte-note-refus p {
+  margin: 0 0 6px;
+  color: var(--danger);
+  font-weight: 600;
+}

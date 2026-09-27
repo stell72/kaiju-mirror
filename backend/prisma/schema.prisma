@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// --- ENUMS ---
+
+enum UserRole {
+  QC
+  LC
+  CD
+}
+
+enum RouteType {
+  DIRECT
+  TRANSIT
+  MARITIME
+}
+
+enum RequestStatus {
+  PENDING
+  READY_TO_EXECUTE
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum RuleViolationCode {
+  PERMISSION_DENIED
+  ADJACENCY_VIOLATION
+  RETENTION_VIOLATION
+  DISASTER_LEVEL_RESTRICTION
+  INSUFFICIENT_STOCK
+  XENO_PRIORITY_CONFLICT
+}
+
+// --- MODELS ---
+
+model Quarter {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @db.VarChar(10)
+  name      String   @db.VarChar(50)
+  seaAccess Boolean  @default(false) @map("sea_access")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  users                 User[]
+  stocks                QuarterStock[]
+  outgoingRoutes        AdjacencyRoute[]  @relation("FromQuarter")
+  incomingRoutes        AdjacencyRoute[]  @relation("ToQuarter")
+  outgoingTransfers     TransferRequest[] @relation("FromQuarterRequests")
+  incomingTransfers     TransferRequest[] @relation("ToQuarterRequests")
+
+  @@map("quarters")
+}
+
+model ResourceType {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique @db.VarChar(30)
+  name        String   @db.VarChar(100)
+  description String?  @db.Text
+
+  // Relations
+  stocks           QuarterStock[]
+  transferRequests TransferRequest[]
+
+  @@map("resource_types")
+}
+
+model AdjacencyRoute {
+  id            Int       @id @default(autoincrement())
+  fromQuarterId Int       @map("from_quarter_id")
+  toQuarterId   Int       @map("to_quarter_id")
+  routeType     RouteType @map("route_type")
+
+  // Relations
+  fromQuarter Quarter @relation("FromQuarter", fields: [fromQuarterId], references: [id], onDelete: Cascade)
+  toQuarter   Quarter @relation("ToQuarter", fields: [toQuarterId], references: [id], onDelete: Cascade)
+
+  @@unique([fromQuarterId, toQuarterId])
+  @@map("adjacency_routes")
+}
+
+model User {
+  id                Int      @id @default(autoincrement())
+  email             String   @unique @db.VarChar(255)
+  passwordHash      String   @map("password_hash") @db.VarChar(255)
+  role              UserRole
+  assignedQuarterId Int?     @map("assigned_quarter_id")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  // Relations
+  assignedQuarter  Quarter?          @relation(fields: [assignedQuarterId], references: [id], onDelete: SetNull)
+  transferRequests TransferRequest[]
+  requestApprovals RequestApproval[]
+  disasterLevelLogs DisasterLevelLog[]
+  rejectionLogs    RejectionLog[]
+
+  @@map("users")
+}
+
+model QuarterStock {
+  quarterId       Int @map("quarter_id")
+  resourceTypeId  Int @map("resource_type_id")
+  initialQuantity Int @map("initial_quantity")
+  currentQuantity Int @map("current_quantity")
+  retentionMin    Int @map("retention_min")
+
+  // Relations
+  quarter      Quarter      @relation(fields: [quarterId], references: [id], onDelete: Cascade)
+  resourceType ResourceType @relation(fields: [resourceTypeId], references: [id], onDelete: Cascade)
+
+  @@id([quarterId, resourceTypeId])
+  @@map("quarter_stock")
+}
+
+model TransferRequest {
+  id                       Int           @id @default(autoincrement())
+  requestedByUserId        Int           @map("requested_by_user_id")
+  fromQuarterId            Int           @map("from_quarter_id")
+  toQuarterId              Int           @map("to_quarter_id")
+  transitQuarterId         Int?          @map("transit_quarter_id")
+  resourceTypeId           Int           @map("resource_type_id")
+  quantity                 Int
+  routeType                RouteType     @map("route_type")
+  status                   RequestStatus @default(PENDING)
+  disasterLevelAtCreation  Int           @map("disaster_level_at_creation")
+  scheduledStartAt         DateTime      @map("scheduled_start_at")
+  scheduledEndAt           DateTime      @map("scheduled_end_at")
+  createdAt                DateTime      @default(now()) @map("created_at")
+  updatedAt                DateTime      @default(now()) @updatedAt @map("updated_at")
+
+  requestedBy  User              @relation(fields: [requestedByUserId], references: [id])
+  fromQuarter  Quarter           @relation("FromQuarterRequests", fields: [fromQuarterId], references: [id])
+  toQuarter    Quarter           @relation("ToQuarterRequests", fields: [toQuarterId], references: [id])
+  resourceType ResourceType      @relation(fields: [resourceTypeId], references: [id])
+  approvals    RequestApproval[]
+  rejectionLogs RejectionLog[]
+
+  @@map("transfer_requests")
+}
+
+model RequestApproval {
+  id            Int      @id @default(autoincrement())
+  requestId     Int      @map("request_id")
+  approverUserId Int      @map("approver_user_id")
+  approvalStage String   @map("approval_stage") @db.VarChar(30)
+  approved      Boolean
+  comment       String?  @db.Text
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // Relations
+  request  TransferRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  approver User            @relation(fields: [approverUserId], references: [id])
+
+  @@map("request_approvals")
+}
+
+model DisasterLevelLog {
+  id              Int      @id @default(autoincrement())
+  level           Int
+  changedByUserId Int      @map("changed_by_user_id")
+  reason          String?  @db.Text
+  changedAt       DateTime @default(now()) @map("changed_at")
+
+  // Relations
+  changedBy User @relation(fields: [changedByUserId], references: [id])
+
+  @@map("disaster_level_log")
+}
+
+model RejectionLog {
+  id               Int               @id @default(autoincrement())
+  requestId        Int?              @map("request_id")
+  userId           Int               @map("user_id")
+  ruleViolated     RuleViolationCode @map("rule_violated")
+  httpStatusCode   Int               @map("http_status_code")
+  message          String            @db.Text
+  attemptedPayload Json              @map("attempted_payload")
+  createdAt        DateTime          @default(now()) @map("created_at")
+
+  // Relations
+  request TransferRequest? @relation(fields: [requestId], references: [id], onDelete: SetNull)
+  user    User             @relation(fields: [userId], references: [id])
+
+  @@map("rejection_log")
+}

@@ -1,0 +1,9 @@
+.icone-mode {
+  width: 56px;
+  height: 56px;
+  vertical-align: middle;
+  object-fit: contain;
+  padding: 8px;
+  border-radius: 999px;
+  background: var(--primaire-clair);
+}

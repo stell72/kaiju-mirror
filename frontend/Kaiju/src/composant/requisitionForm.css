@@ -1,0 +1,90 @@
+.requisition-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.requisition-description {
+  font-size: 13.5px;
+  color: var(--texte-clair);
+  margin: 0 0 4px;
+}
+
+.requisition-note {
+  color: var(--texte-clair);
+  font-size: 14px;
+  background: var(--fond);
+  padding: 12px 14px;
+  border-radius: var(--rayon-sm);
+  margin: 0;
+}
+
+.requisition-champ {
+  display: flex;
+  flex-direction: column;
+}
+
+.requisition-champ label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--texte-clair);
+}
+
+.requisition-champ select,
+.requisition-champ input {
+  font: inherit;
+  padding: 10px 13px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-sm);
+  font-size: 14px;
+  background: var(--fond);
+  color: var(--texte);
+}
+
+.requisition-champ select:focus-visible,
+.requisition-champ input:focus-visible {
+  outline: none;
+  border-color: var(--primaire);
+  box-shadow: 0 0 0 3px var(--primaire-clair);
+}
+
+.requisition-erreur {
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.requisition-succes {
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.requisition-bouton {
+  align-self: flex-start;
+  background: linear-gradient(135deg, var(--primaire), var(--primaire-fonce));
+  color: #fff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: var(--rayon-sm);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--ombre);
+  transition: transform .1s ease, box-shadow .15s ease;
+}
+
+.requisition-bouton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--ombre-hover);
+}
+
+.requisition-bouton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}

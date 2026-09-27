@@ -1,0 +1,33 @@
+.page-stock {
+  display: flex;
+  justify-content: center;
+}
+
+.stock-page-container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stock-title {
+  font-family: var(--police);
+  font-weight: 800;
+  font-size: clamp(26px, 3vw, 32px);
+  margin: 0;
+  color: var(--texte);
+}
+
+.stock-table-section {
+  overflow-x: auto;
+}
+
+.stock-error {
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--danger-fond);
+  padding: 10px 14px;
+  border-radius: var(--rayon-sm);
+}
