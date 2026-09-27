@@ -25,7 +25,10 @@ const jwt = require('jsonwebtoken');
 const { Server } = require('socket.io');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://glistening-communication-production-e375.up.railway.app',
+  credentials: true
+}));
 app.use(express.json());
 
 const authRouter = require('./Routes/auth');
